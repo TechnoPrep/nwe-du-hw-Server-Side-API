@@ -38,16 +38,29 @@
                   <label class="visually-hidden" for="inlineFormInputGroupUsername">Username</label>
                   <div class="input-group">
                     <input type="text" class="form-control" id="City" placeholder="Search a City">
-                    <button type="submit" id='submit' class="btn btn-primary custom-mar col-12">Submit</button>
+                    <button type="submit" id='submit' class="btn btn-primary col-12">Submit</button>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="unitType" id="fahrenheit" value="imperial" checked>
+                    <label class="form-check-label" for="fahrenheit">
+                      Fahrenheit
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="unitType" id="celsius" value="metric">
+                    <label class="form-check-label" for="celsius">
+                      Celsius
+                    </label>
                   </div>
                 </div>
+
+                <div class='prev-search row-cols-lg-auto g-3 align-items-center'>
+                    <div class="prev-city" id="city-list">
+  
+                    </div>
+                </div>
               </form>
-
-              <div class='prev-search row-cols-lg-auto g-3 align-items-center'>
-                  <div class="prev-city" id="city-list">
-
-                  </div>
-              </div>
+              
         </aside>
 
         <main class='col-lg-8'>
