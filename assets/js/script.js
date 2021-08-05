@@ -4,10 +4,12 @@ let today = moment().format('MM/DD/YY');
 
 let weatherEl = $('#current-header');
 
-//Pull in the city from the Submit Function
-function getLonLat(city){
+let previousCities = document.querySelector(".custom-city-btn");
 
-   let queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=" + APIKey;
+//Pull in the city from the Submit Function
+function getLonLat(city, unit){
+
+   let queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
 
    console.log(queryURL);
 
@@ -28,18 +30,21 @@ function getLonLat(city){
 
     let cityToDisplay = data.name;
 
-    getWeather(lon, lat, cityToDisplay);
-    addToLocal(cityToDisplay);
+    console.log('I got the city');
 
+    getWeather(lon, lat, cityToDisplay, unit);
+    addToLocal(cityToDisplay);
 
   });
 }
 
-function getWeather(lon, lat, city){
+function getWeather(lon, lat, city, unit){
 
-    let queryURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+ lat + "&lon=" + lon + '&exclude=hourly,minutely&units=imperial' + "&appid=" + APIKey;
+    let queryURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+ lat + "&lon=" + lon + '&exclude=hourly,minutely&units=' + unit + "&appid=" + APIKey;
 
     console.log(queryURL);
+
+    console.log('I got the Fetch');
 
     fetch(queryURL)
     .then(function (response){
@@ -69,11 +74,20 @@ function getWeather(lon, lat, city){
         weatherIcon.addClass('currentIcon');
     
         weatherEl.append(weatherIcon);
-    
-        $('#curr-temp').text(`Temp: ${temp}°F`);
-        $('#curr-wind').text(`Wind: ${wind} MPH`);
+
+        let spanEl = $('<span>');
+
+        let degrees = unit === 'imperial' ? 'F' : 'C';
+        let speed = unit === 'imperial' ? 'MPH' : 'MPS';
+
+        $('#curr-temp').text(`Temp: ${temp}°${degrees}`);
+        $('#curr-wind').text(`Wind: ${wind} ${speed}`);
         $('#curr-humidity').text(`Humidity: ${humidity}%`);
-        $('#curr-uvi').text(`UV Index: ${uvi}`);
+        $('#curr-uvi').text(`UV Index: `);
+
+        spanEl.text(uvi);
+        spanEl.attr('id', 'uvIndex');
+        $('#curr-uvi').append(spanEl);
 
         let dailyForcastEl = $('#five-day')
         let dailyForcastH2 = $('<h2>')
@@ -83,10 +97,7 @@ function getWeather(lon, lat, city){
         dailyForcastH2.attr('id', 'five-day-h2')
         dailyForcastEl.append(dailyForcastH2);
 
-        // const htmlCard = `
-        // <div class="card-top">${date[i]}</div>
-        
-        // `
+        uvIndex(uvi);
 
         for (let i = 1; i < 6; i++) {
             
@@ -106,19 +117,19 @@ function getWeather(lon, lat, city){
             let dHum = data.daily[i].humidity;
             
             dDateEl.text(dDate);
-            dDateEl.addClass('daily-date')
+            dDateEl.addClass('daily-date');
             dCardEl.append(dDateEl);
 
             dImgEl.attr('src', dIconURL);
             dImgEl.attr('alt', dIconAlt);
-            dImgEl.addClass('daily-icon');
+            dImgEl.addClass('daily-icon d-flex justify-content-center');
             dCardEl.append(dImgEl);
 
-            dTempEl.text(`Temp: ${dTemp}°F`);
+            dTempEl.text(`Temp: ${dTemp}°${degrees}`);
             dTempEl.addClass('daily-temp');
             dCardEl.append(dTempEl);
 
-            dWindEl.text(`Wind: ${dWind} MPH`);
+            dWindEl.text(`Wind: ${dWind} ${speed}`);
             dWindEl.addClass('daily-wind');
             dCardEl.append(dWindEl);
 
@@ -131,12 +142,15 @@ function getWeather(lon, lat, city){
             
         }
         
+        console.log('I displayed the data');
+        
 
     });
 }
 
 function addToLocal(city){
 
+    console.log('addToLocal Ran');
     let cityArr = [];
 
     cityArr = JSON.parse(localStorage.getItem('previousSelection')) || [];
@@ -153,23 +167,50 @@ function addToLocal(city){
 
 }
 
+function uvIndex(uvi){
+
+    if(uvi < 3){
+        $('#uvIndex').toggleClass('uvi-low');
+        console.log('low');
+    
+    }else if(uvi < 6 && uvi > 3){
+        $('#uvIndex').toggleClass('uvi-moderate');
+        console.log('moderate');
+    
+    } else if(uvi < 8 && uvi > 5){
+        $('#uvIndex').toggleClass('uvi-high');
+        console.log('high');
+
+    }  else if(uvi < 11 && uvi > 7){
+        $('#uvIndex').toggleClass('uvi-vhigh');
+        console.log('vhigh');
+
+    } else {
+        $('#uvIndex').toggleClass('uvi-extreme');
+        console.log('extreme');
+    }
+}
+
 function displayPrevCity(){
+
+    console.log('displayPrevCity Ran');
 
     $('#city-list').empty();
 
     tempArr = JSON.parse(localStorage.getItem('previousSelection'));
 
-    console.log(tempArr);
+    // console.log(tempArr);
 
     let prevCityEl = $('#city-list');
     
     if(tempArr !== null){
         for (let i = 0; i < tempArr.length; i++) {
 
-            let btnEl = $('<button>')
+            let btnEl = $('<button>');
 
             btnEl.text(tempArr[i]);
             btnEl.attr('value', tempArr[i]);
+            btnEl.attr('type', 'submit');
             btnEl.addClass('btn btn-primary custom-city-btn col-12');
             prevCityEl.append(btnEl);
 
@@ -182,15 +223,33 @@ displayPrevCity();
 
 $('#submit').click(function(event){
     event.preventDefault();
-    let city = $(this).siblings('input').val()
+    let city = $('#City').val()
 
-    getLonLat(city);
+    let unit = $('input[type=radio][name=unitType]:checked').val();
+
+    getLonLat(city, unit);
 
 })
 
 $('.custom-city-btn').click(function(event){
-    event.preventDefault();
-    let city = $(this).val()
 
-    getLonLat(city);
+    event.preventDefault();
+    let city = $(this).val();
+    let unit = $('input[type=radio][name=unitType]:checked').val();
+
+    console.log('I clicked');
+
+    getLonLat(city, unit);
 })
+
+
+// $('.custom-city-btn').click(function(event){
+
+//     // event.preventDefault();
+//     let city = $(this).val();
+//     let unit = $('input[type=radio][name=unitType]:checked').val();
+
+//     console.log('I clicked');
+
+//     getLonLat(city, unit);
+// })
