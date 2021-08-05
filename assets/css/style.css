@@ -1,0 +1,35 @@
+.custom-mar{
+    margin: 10px;
+}
+
+.bg-blue {
+    background-color: blue;
+    color: white;
+}
+
+.city-day {
+    font-size: 5rem;
+}
+
+ul{
+    list-style: none;
+}
+
+.daily-card{
+    
+}
+
+.daily-date {
+
+}
+
+.daily-icon{
+
+}
+
+.custom-city-btn{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+
