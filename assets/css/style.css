@@ -3,8 +3,12 @@
 }
 
 .bg-blue {
-    background-color: blue;
+    background-color: #0d6efd;
     color: white;
+}
+
+.current-border{
+    border: black solid 3px;
 }
 
 .city-day {
@@ -16,15 +20,18 @@ ul{
 }
 
 .daily-card{
-    
+    background-color: #0d6efd;
+    margin-left: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
 }
 
 .daily-date {
-
-}
-
-.daily-icon{
-
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
 }
 
 .custom-city-btn{
@@ -32,4 +39,32 @@ ul{
     margin-top: 10px;
 }
 
+.uvi-low,
+.uvi-moderate,
+.uvi-high,
+.uvi-vhigh,
+.uvi-extreme {
+    padding: 2px 4px 2px 4px;
+    border-radius: 3px;
 
+}
+
+.uvi-low{
+    background-color: green;
+}
+
+.uvi-moderate{
+    background-color: yellow;
+}
+
+.uvi-high{
+    background-color: orange;
+}
+
+.uvi-vhigh{
+    background-color: red;
+}
+
+.uvi-extreme{
+    background-color: violet;
+}
