@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+
+    <title>Document</title>
+</head>
+<body>
+
+    <header>
+        <header class="p-4 p-md-5 mb-4 text-white rounded bg-dark text-center">
+            <h1 class="h1">Weather API App</h1>
+            <h2 class="h2">Check the Weather!</h2>
+            <h2 class="h2" id="clock"></h2>
+          </header>
+    </header>
+    
+    <div class="row">
+        <aside class='col-lg-3'>
+            <form class="row-cols-lg-auto g-3 align-items-center">
+                <div class="col-12 custom-mar">
+                  <label class="visually-hidden" for="inlineFormInputGroupUsername">Username</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="City" placeholder="Search a City">
+                    <button type="submit" id='submit' class="btn btn-primary custom-mar col-12">Submit</button>
+                  </div>
+                </div>
+              </form>
+
+              <div class='prev-search row-cols-lg-auto g-3 align-items-center'>
+                  <div class="prev-city" id="city-list">
+
+                  </div>
+              </div>
+        </aside>
+
+        <main class='col-lg-8'>
+            <div class="row-cols-lg-auto g-3 align-items-center" id="current">
+                <p class='bg-blue city-day' id="current-header"></p>
+                <p id="curr-temp"></p>
+                <p id="curr-wind"></p>
+                <p id="curr-humidity"></p>
+                <p id="curr-uvi"></p>
+            </div>
+
+            <div class='five-day-header' id="five-day">
+            
+            </div>
+            <div class="card-group custom-card-group d-flex justify-content-center" id='daily-card-group'>
+
+            </div>
+        </main>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    ></script>
+    <script src="./assets/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>
