@@ -70,7 +70,7 @@ function getWeather(lon, lat, city, unit){
         let weatherIcon = $('<img>');
         
         let iconCode = data.current.weather[0].icon;
-        let iconURL = 'http://openweathermap.org/img/wn/' + iconCode + '@2x.png'
+        let iconURL = 'https://openweathermap.org/img/wn/' + iconCode + '@2x.png'
         let iconAlt = data.current.weather[0].description;
     
         let temp = data.current.temp;
