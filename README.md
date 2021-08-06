@@ -5,7 +5,7 @@ This application was built to provide easy to getting the current and 5 day fore
 
 ## Screenshot
 
-![Nathaniel's Weather API](#)
+![Nathaniel's Weather API](https://github.com/TechnoPrep/nwe-du-hw-Server-Side-API/blob/main/assets/screenshots/weather_api.png)
 
 ## Website Address
 
