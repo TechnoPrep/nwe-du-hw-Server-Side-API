@@ -11,8 +11,6 @@ function getLonLat(city, unit){
 
    let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
 
-   console.log(queryURL);
-
    fetch(queryURL)
   .then(function (response) {
       
@@ -30,8 +28,6 @@ function getLonLat(city, unit){
 
     let cityToDisplay = data.name;
 
-    console.log('I got the city');
-
     getWeather(lon, lat, cityToDisplay, unit);
     addToLocal(cityToDisplay);
 
@@ -42,33 +38,24 @@ function uvIndex(uvi){
 
     if(uvi < 3){
         $('#uvIndex').toggleClass('uvi-low');
-        console.log('low');
     
     }else if(uvi < 6 && uvi > 3){
         $('#uvIndex').toggleClass('uvi-moderate');
-        console.log('moderate');
     
     } else if(uvi < 8 && uvi > 5){
         $('#uvIndex').toggleClass('uvi-high');
-        console.log('high');
 
     }  else if(uvi < 11 && uvi > 7){
         $('#uvIndex').toggleClass('uvi-vhigh');
-        console.log('vhigh');
 
     } else {
         $('#uvIndex').toggleClass('uvi-extreme');
-        console.log('extreme');
     }
 }
 
 function getWeather(lon, lat, city, unit){
 
     let queryURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+ lat + "&lon=" + lon + '&exclude=hourly,minutely&units=' + unit + "&appid=" + APIKey;
-
-    console.log(queryURL);
-
-    console.log('I got the Fetch');
 
     fetch(queryURL)
     .then(function (response){
@@ -164,17 +151,13 @@ function getWeather(lon, lat, city, unit){
             dCardEl.addClass('daily-card');
             dailyCardGroup.append(dCardEl);
             
-        }
-        
-        console.log('I displayed the data');
-        
+        }   
 
     });
 }
 
 function addToLocal(city){
 
-    console.log('addToLocal Ran');
     let cityArr = [];
 
     cityArr = JSON.parse(localStorage.getItem('previousSelection')) || [];
@@ -192,8 +175,6 @@ function addToLocal(city){
 }
 
 function displayPrevCity(){
-
-    console.log('displayPrevCity Ran');
 
     $('#city-list').empty();
 
@@ -238,8 +219,6 @@ $(document).ready(function () {
         let city = $(this).val();
         let unit = $('input[type=radio][name=unitType]:checked').val();
     
-        console.log('I clicked');
-        console.log(city);
         getLonLat(city, unit);
 
 
