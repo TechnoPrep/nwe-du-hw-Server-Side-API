@@ -9,7 +9,7 @@ let previousCities = document.querySelector(".custom-city-btn");
 //Pull in the city from the Submit Function
 function getLonLat(city, unit){
 
-   let queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+   let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
 
    console.log(queryURL);
 
