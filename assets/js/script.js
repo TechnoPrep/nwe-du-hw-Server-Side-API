@@ -121,7 +121,7 @@ function getWeather(lon, lat, city, unit){
 
             let dDate = moment.unix(data.daily[i].dt).format('MM/DD/YYYY');
             let dIconCode = data.daily[i].weather[0].icon;
-            let dIconURL = 'http://openweathermap.org/img/wn/' + dIconCode + '@2x.png';
+            let dIconURL = 'https://openweathermap.org/img/wn/' + dIconCode + '@2x.png';
             let dIconAlt = data.daily[i].weather.description;
             let dTemp = data.daily[i].temp.day;
             let dWind = data.daily[i].wind_speed;
