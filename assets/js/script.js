@@ -38,6 +38,30 @@ function getLonLat(city, unit){
   });
 }
 
+function uvIndex(uvi){
+
+    if(uvi < 3){
+        $('#uvIndex').toggleClass('uvi-low');
+        console.log('low');
+    
+    }else if(uvi < 6 && uvi > 3){
+        $('#uvIndex').toggleClass('uvi-moderate');
+        console.log('moderate');
+    
+    } else if(uvi < 8 && uvi > 5){
+        $('#uvIndex').toggleClass('uvi-high');
+        console.log('high');
+
+    }  else if(uvi < 11 && uvi > 7){
+        $('#uvIndex').toggleClass('uvi-vhigh');
+        console.log('vhigh');
+
+    } else {
+        $('#uvIndex').toggleClass('uvi-extreme');
+        console.log('extreme');
+    }
+}
+
 function getWeather(lon, lat, city, unit){
 
     let queryURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+ lat + "&lon=" + lon + '&exclude=hourly,minutely&units=' + unit + "&appid=" + APIKey;
@@ -78,7 +102,7 @@ function getWeather(lon, lat, city, unit){
         let spanEl = $('<span>');
 
         let degrees = unit === 'imperial' ? 'F' : 'C';
-        let speed = unit === 'imperial' ? 'MPH' : 'MPS';
+        let speed = unit === 'imperial' ? 'MPH' : 'm/s';
 
         $('#curr-temp').text(`Temp: ${temp}°${degrees}`);
         $('#curr-wind').text(`Wind: ${wind} ${speed}`);
@@ -167,30 +191,6 @@ function addToLocal(city){
 
 }
 
-function uvIndex(uvi){
-
-    if(uvi < 3){
-        $('#uvIndex').toggleClass('uvi-low');
-        console.log('low');
-    
-    }else if(uvi < 6 && uvi > 3){
-        $('#uvIndex').toggleClass('uvi-moderate');
-        console.log('moderate');
-    
-    } else if(uvi < 8 && uvi > 5){
-        $('#uvIndex').toggleClass('uvi-high');
-        console.log('high');
-
-    }  else if(uvi < 11 && uvi > 7){
-        $('#uvIndex').toggleClass('uvi-vhigh');
-        console.log('vhigh');
-
-    } else {
-        $('#uvIndex').toggleClass('uvi-extreme');
-        console.log('extreme');
-    }
-}
-
 function displayPrevCity(){
 
     console.log('displayPrevCity Ran');
@@ -198,8 +198,6 @@ function displayPrevCity(){
     $('#city-list').empty();
 
     tempArr = JSON.parse(localStorage.getItem('previousSelection'));
-
-    // console.log(tempArr);
 
     let prevCityEl = $('#city-list');
     
@@ -210,7 +208,7 @@ function displayPrevCity(){
 
             btnEl.text(tempArr[i]);
             btnEl.attr('value', tempArr[i]);
-            btnEl.attr('type', 'submit');
+            btnEl.attr('type', 'button');
             btnEl.addClass('btn btn-primary custom-city-btn col-12');
             prevCityEl.append(btnEl);
 
@@ -221,8 +219,8 @@ function displayPrevCity(){
 
 displayPrevCity();
 
-$('#submit').click(function(event){
-    event.preventDefault();
+$('#submit').on('click',function(e){
+    e.preventDefault();
     let city = $('#City').val()
 
     let unit = $('input[type=radio][name=unitType]:checked').val();
@@ -231,25 +229,20 @@ $('#submit').click(function(event){
 
 })
 
-$('.custom-city-btn').click(function(event){
 
-    event.preventDefault();
-    let city = $(this).val();
-    let unit = $('input[type=radio][name=unitType]:checked').val();
+$(document).ready(function () {
+    
+    $(document).on('click', '.custom-city-btn', function(e){
 
-    console.log('I clicked');
+        e.preventDefault();
+        let city = $(this).val();
+        let unit = $('input[type=radio][name=unitType]:checked').val();
+    
+        console.log('I clicked');
+        console.log(city);
+        getLonLat(city, unit);
 
-    getLonLat(city, unit);
-})
 
+    })
 
-// $('.custom-city-btn').click(function(event){
-
-//     // event.preventDefault();
-//     let city = $(this).val();
-//     let unit = $('input[type=radio][name=unitType]:checked').val();
-
-//     console.log('I clicked');
-
-//     getLonLat(city, unit);
-// })
+});
