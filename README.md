@@ -9,4 +9,4 @@ This application was built to provide easy to getting the current and 5 day fore
 
 ## Website Address
 
-[Nathaniel's Weather API](https://github.com/TechnoPrep/nwe-du-hw-Server-Side-API)
+[Nathaniel's Weather API](https://technoprep.github.io/nwe-du-hw-Server-Side-API/)
